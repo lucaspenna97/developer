@@ -1,0 +1,94 @@
+﻿//Endpoints LOJA
+
+Method: POST
+http://localhost:9191/insertLoja
+JSON Example: {"id_cliente": 789, "cnpj": 12345678912345, "nome_loja":"FarmSoftware", "razao": "FS"}
+
+Method: GET
+http://localhost:9191/getLoja?id_cliente=*&cnpj=*
+Busca por id_cliente ou cnpj
+Retorno: {"id_cliente":123,"cnpj":123,"nome_loja":"AnguloSistemas","razao":"FS"}
+
+Method: DELETE
+http://localhost:9191/deleteLoja?id_cliente=*&cnpj=*
+Deletar por id_cliente ou cnpj
+
+Method: PUT
+http://localhost:9191/updateLoja
+JSON Example: {"id_cliente": 789, "cnpj": 12345678912345, "nome_loja":"FarmSoftware", "razao": "FS"}
+OBS.: O update será aplicado exatamente igual o objeto vier (se houver atributos faltantes, eles seram apagados mesmo que existam anteriormente).
+
+
+
+//Endpoints GRUPO
+
+Method: POST
+http://localhost:9191/createGrupo
+JSON Example: {"nome_grupo": "AnguloSistemas", "descricao_grupo":"Software House", "loja": {"id_cliente": 123}}
+OBS.: É necessario passar um id_cliente existente (loja existente) para vincular uma matriz, caso contrario o grupo nao sera criado.
+
+Method: GET
+http://localhost:9191/getGrupo?id_grupo=*
+Busca pelo id_grupo, retornando todas as lojas de determinado grupo
+Retorno: {"grupo":
+         {"id_grupo":16,"nome_grupo":"AnguloSistemas","descricao_grupo":"Software House","data_criacao":"08/07/2019",
+         "loja":{"id_cliente":999,"cnpj":43941186000196,"nome_loja":"PINGO DE GENTE","razao":"HENTZ \u0026 CASSANO LTDA - EPP"}},
+         "lojas":[{"id_cliente":19,"cnpj":52646700000151,"nome_loja":"TAKEO","razao":"MAGAZINE MISS ELEGAN LTDA"}]}
+
+Method: GET
+http://localhost:9191/getGrupos
+Retorna todos as lojas de todos os grupos
+Retorno: [
+          {"grupo":{"id_grupo":16,"nome_grupo":"AnguloSistemas","descricao_grupo":"Software House","data_criacao":"08/07/2019",
+           "loja":{"id_cliente":999,"cnpj":43941186000196,"nome_loja":"PINGO DE GENTE","razao":"HENTZ \u0026 CASSANO LTDA - EPP"}},
+           "lojas":[{"id_cliente":19,"cnpj":52646700000151,"nome_loja":"TAKEO","razao":"MAGAZINE MISS ELEGAN LTDA"}]},
+          {"grupo":{"id_grupo":17,"nome_grupo":"AnguloSistemas","descricao_grupo":"Software House","data_criacao":"10/07/2019",
+           "loja":{"id_cliente":123,"cnpj":54491675000100,"nome_loja":"MARIO","razao":"COMERCIO DE PERFUMARIA MARIO LTDA"}},
+           "lojas":[{"id_cliente":5,"cnpj":53656800000162,"nome_loja":"GOYA","razao":"GOYA EXEMPLO"}]}
+         ]
+
+
+Method: DELETE
+http://localhost:9191/deleteGrupo?id_grupo=*
+Exclui o grupo juntamente com seus integrantes 
+
+Method: PUT
+http://localhost:9191/updateGrupo
+Atualiza informações do grupo com base no id_grupo, caso haja atributos vazios no momento do update, será mantido o atual, podendo assim atualizar
+atributos especificos. (Não podera ser atualizado o id_matriz do grupo)
+{"id_grupo":1, "nome_grupo": "Angulo Sistemas", "descricao_grupo":"Software House", "data_criacao": "05/07/2019"}
+
+
+
+
+//Endpoints LOJA-GRUPO	
+
+Method:POST
+http://localhost:9191/createLojaGrupo?id_grupo=*&id_cliente=*
+Cria um vinculo de uma loja com um grupo
+
+Method:GET
+http://localhost:9191/getLojasGrupo?id_grupo=*
+Retorna todas as lojas vinculadas a um grupo
+
+Method:GET 
+http://localhost:9191/getLojasGrupos
+Retorno todas as lojas vinculadas a todos os grupos
+
+Method:DELETE
+http://localhost:9191/deleteLojaGrupo?id_grupo=*&id_cliente=*
+Desvincula uma loja há um grupo
+
+
+//Swagger Documentations when service is running
+
+http://localhost:9191/v2/api-docs
+http://localhost:9191/swagger-ui.html
+
+
+
+
+
+
+
+
